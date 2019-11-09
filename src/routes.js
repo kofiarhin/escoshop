@@ -1,8 +1,7 @@
 import React from "react";
-import Layout from "./components/hoc/layout";
+import Layout from "./components/Hoc/layout";
 import { Switch, Route } from "react-router-dom";
-import Home from "./components/home/home";
-
+import Home from "./components/Home/home";
 const Routes = () => {
 
     return <div>
@@ -11,7 +10,7 @@ const Routes = () => {
 
             <Switch>
 
-                <Route path="/" exact component={Home} />
+                <Route exact component={Home} />
 
             </Switch>
 
