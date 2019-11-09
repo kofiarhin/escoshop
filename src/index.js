@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-cosnt App = () => {
+const App = () => {
 
     return <div> App </div>
 }
