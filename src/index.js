@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-const App = () => {
-
-    return <div> App </div>
-}
+import { BrowserRouter } from "react-router-dom";
+import Routes from "./routes";
 
 
-ReactDOM.render(<App />, document.querySelector("#root"))
+
+ReactDOM.render(
+
+
+    <BrowserRouter>
+        <Routes />
+    </BrowserRouter>
+
+    , document.querySelector("#root"))
