@@ -13,4 +13,21 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export { firebase }
+const firebaseLooper = snapshot => {
+
+    let data = [];
+
+    snapshot.forEach(childSnapshot => {
+
+        data.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val()
+        })
+    })
+
+
+    return data;
+
+}
+
+export { firebase, firebaseLooper }
