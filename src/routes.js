@@ -6,6 +6,7 @@ import Register from "./components/Register/register";
 import Login from "./components/Login/login";
 import Dashboard from "./components/Dashboard/dashboard";
 import Logout from "./components/Logout/logout";
+import AddProduct from "./components/Prouducts/add";
 
 
 const Routes = () => {
@@ -16,6 +17,7 @@ const Routes = () => {
 
             <Switch>
 
+                <Route path="/products/add" exact component={AddProduct} />
                 <Route path="/logout" exact component={Logout} />
                 <Route path="/register" exact component={Register} />
                 <Route path="/login" exact component={Login} />

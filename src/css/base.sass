@@ -13,9 +13,8 @@ html, body
 h1, h2, h3, h4, p
     margin: 0
     padding: 0
-input
+input, select
     outline: none
-    border: none
     text-indent: 20px
 //text formating
 
@@ -41,10 +40,14 @@ a
     width: 540px
     max-width: 90%
     margin: 0 auto
-    input
-        padding: 1rem 0rem
+    input, select
+        padding: 0.8rem 0rem
         width: 100%
         margin-bottom: 1rem
+    textarea
+        width: 100%
+        min-height: 200px
+        padding: 1rem
     button 
         outline: none
         border: none
@@ -70,3 +73,16 @@ a
     font-size: 0.8rem
     cursor: pointer
     margin-left: 0.8rem
+
+
+.dash-wrapper
+    background: pink
+    display: flex
+    .dash-unit
+        width: 25%
+        text-align: center
+        padding: 4rem 0rem
+        cursor: pointer
+        transition: all eas-in-out 300ms
+        &:hover
+            background: yellow

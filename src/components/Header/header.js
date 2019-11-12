@@ -46,12 +46,11 @@ class Header extends Component {
 
         const user = this.state.user;
 
-        console.log(user);
-
         return (!_.isEmpty(user)) ? <nav>
 
-            <Link to="/login"> Home</Link>
-            <Link to="/register" style={{
+            <Link to="/"> Home</Link>
+            <Link to="/dashboard"> Dashboard</Link>
+            <Link to="/profile" style={{
                 textTransform: "capitalize"
             }}> {user.firstName}</Link>
             <button className="logout-cta" onClick={this.handleLogout}>Logout</button>
