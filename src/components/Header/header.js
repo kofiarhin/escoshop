@@ -42,17 +42,27 @@ class Header extends Component {
 
         }
     }
+
+    renderCartLen = () => {
+
+        const cart = JSON.parse(sessionStorage.getItem('cart'));
+
+        if (!_.isEmpty(cart)) {
+
+            return <span> ({cart.length}) </span>;
+        }
+    }
     renderLinks = () => {
 
         const user = this.state.user;
 
         return (!_.isEmpty(user)) ? <nav>
 
-            <Link to="/"> Home</Link>
-            <Link to="/dashboard"> Dashboard</Link>
-            <Link to="/profile" style={{
+            <Link to="/user/profile" style={{
                 textTransform: "capitalize"
-            }}> {user.firstName}</Link>
+            }}> Hi, {user.firstName}</Link>
+            <Link to="/dashboard"> Dashboard</Link>
+            <Link to="/cart"> Cart{this.renderCartLen()}</Link>
             <button className="logout-cta" onClick={this.handleLogout}>Logout</button>
         </nav>
 

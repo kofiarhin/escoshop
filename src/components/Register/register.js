@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "../Header/header";
 import _ from "lodash";
 import { firebase } from "../../firebase";
+import { genDate } from "../../config";
 
 class Register extends Component {
 
@@ -31,25 +32,49 @@ class Register extends Component {
     handleSubmit = event => {
 
         event.preventDefault();
-
         const formData = this.state.formData;
         let dataToSubmit = {};
+        let errors = [];
+
         for (let key in formData) {
-
             if (formData[key] !== "") {
-
                 dataToSubmit[key] = formData[key].value;
+            }
+
+            //check for errors
+            if (formData[key].required && formData[key].value === "") {
+
+                errors.push(`${key} is required`);
             }
         }
 
-        if (!_.isEmpty(dataToSubmit)) {
+        if (!_.isEmpty(errors)) {
 
-            firebase.database().ref("users").push(dataToSubmit).then(snapshot => {
+            //add created on -genDate
+            // add role -customer
 
-                this.props.history.push("/login")
+            this.setState({
+
+                errors
             })
 
+            console.log(errors);
+
+            return
+
         }
+
+        dataToSubmit['createdOn'] = genDate();
+        dataToSubmit['role'] = "customer"
+        //clear errors
+        this.setState({
+
+            errors: []
+        })
+
+        firebase.database().ref("users").push(dataToSubmit).then(snapshot => {
+            this.props.history.push("/login")
+        })
     }
 
     handleChange = (element) => {
@@ -66,6 +91,15 @@ class Register extends Component {
         this.setState({
             formData
         })
+    }
+
+
+    renderErrors = errors => {
+
+        return errors ? errors.map(error => {
+
+            return <p className="error"> {error}</p>
+        }) : null;
     }
     render() {
 
@@ -87,6 +121,7 @@ class Register extends Component {
                     <input type="text" placeholder="Email" onChange={e => this.handleChange({ e, id: "email" })} vaue={this.state.formData.firstName.value} />
 
                     <input type="text" placeholder="Password" onChange={e => this.handleChange({ e, id: "password" })} vaue={this.state.formData.firstName.value} />
+                    {this.renderErrors(this.state.errors)}
                     <button>Create Account</button>
                 </form>
             </div>

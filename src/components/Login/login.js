@@ -82,6 +82,7 @@ class Login extends Component {
                 role
             };
 
+
             sessionStorage.setItem("user", JSON.stringify(userData));
             this.props.history.push("/dashboard");
         }

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import Header from "../Header/header";
 import _ from "lodash";
 import { firebase } from "../../firebase";
-
+import Uploader from "../Widgets/Uploader/uplader";
 class Add extends Component {
 
     state = {
 
         errors: [],
+        uploadSuccess: false,
         formData: {
             name: {
                 required: true,
@@ -24,6 +25,10 @@ class Add extends Component {
             category: {
                 required: true,
                 value: ""
+            },
+            fileData: {
+                value: "",
+                required: true
             }
         }
     }
@@ -74,10 +79,33 @@ class Add extends Component {
         //add product
         firebase.database().ref('products').push(dataToSubmit).then(() => {
 
-            console.log("product added");
+            this.clearForm()
+            this.setState({
+                uploadSuccess: true,
+                errors: []
+            })
+
         })
 
     }
+
+    clearForm = () => {
+
+        const formData = this.state.formData;
+
+        for (let key in formData) {
+
+            formData[key].value = ""
+        }
+
+
+        this.setState({
+
+            formData
+        })
+    }
+
+
 
     renderErrors = errors => {
 
@@ -89,15 +117,35 @@ class Add extends Component {
     }
 
 
+    storeFilename = fileData => {
+
+        const formData = this.state.formData;
+
+        formData['fileData'].value = fileData;
+
+        this.setState({
+
+            formData
+        })
+    }
+
+
+    renderUploadStatus = () => {
+
+        const success = this.state.uploadSuccess;
+        return success ? <p className="feedback"> Product successfully added`</p> : null;
+    }
     render() {
 
         return <div>
 
             <Header />
-            <h1 className="maint-title text-center"> Add Product</h1>
+            <h1 className="main-title text-center"> Add Product</h1>
             <div className="form-wrapper">
 
                 <form onSubmit={this.handleSubmit}>
+
+                    <Uploader storeFilename={filename => this.storeFilename(filename)} />
 
                     <input type="text" placeholder="Product Name" onChange={(event => this.handleChange({ event, id: "name" }))} value={this.state.formData.name.value} />
                     <textarea placeholder="Enter description"
@@ -108,6 +156,8 @@ class Add extends Component {
                     <select
 
                         onChange={event => this.handleChange({ event, id: "category" })}
+
+                        value={this.state.formData.category.value}
                     >
                         <option> Select Category</option>
                         <option value="electronics"> Electronics</option>
@@ -118,6 +168,8 @@ class Add extends Component {
                     </select>
 
                     {this.renderErrors(this.state.errors)}
+                    {this.renderUploadStatus()}
+
                     <button> Add Product</button>
                 </form>
 
