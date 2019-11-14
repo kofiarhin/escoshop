@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "../Header/header";
 import { firebase, firebaseLooper } from "../../firebase";
 import _ from "lodash";
+import "./orders.sass"
 
 class Orders extends Component {
 
@@ -43,7 +44,20 @@ class Orders extends Component {
 
                 return order.items.map(item => {
 
-                    return <h2> {item.product.name}</h2>;
+                    console.log(item)
+
+                    return <div className="product-unit">
+
+                        <div className="cover" style={{
+                            backgroundImage: `url(${item.product.fileData.fileUrl})`
+                        }}> </div>
+                        <div className="content">
+                            <h2> {item.product.name}</h2>
+                            <p> Price: GHC {item.product.price}</p>
+
+                        </div>
+
+                    </div>
                 })
             })
         }
@@ -53,6 +67,7 @@ class Orders extends Component {
         return <div>
 
             <Header />
+            <h1 className="main-title text-center"> Order History!</h1>
             {this.renderOrder(this.state.orders)}
         </div>
     }

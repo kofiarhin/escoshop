@@ -87,7 +87,7 @@ class Header extends Component {
                 <div className="container">
 
 
-                    <h1 className="logo"><Link to="/">Logo</Link> </h1>
+                    <h1 className="logo"><Link to="/">EscoShop</Link> </h1>
                     {this.renderLinks()}
                 </div>
 

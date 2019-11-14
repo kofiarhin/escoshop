@@ -85,6 +85,13 @@ class Login extends Component {
 
             sessionStorage.setItem("user", JSON.stringify(userData));
             this.props.history.push("/dashboard");
+        } {
+
+            errors.push("invalid username/password combination");
+
+            this.setState({
+                errors
+            })
         }
 
     }
